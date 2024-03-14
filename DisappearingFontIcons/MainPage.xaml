@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:DisappearingFontIcons.Controls" 
+             x:Class="DisappearingFontIcons.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Array x:Key="IconsList" Type="{x:Type x:String}">
+                <x:String>&#xe73c;</x:String>
+                <x:String>&#xe863;</x:String>
+                <x:String>&#xea50;</x:String>
+                <x:String>&#xf05d;</x:String>
+                <x:String>&#xe900;</x:String>
+            </x:Array>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,15"
+            Spacing="25">
+
+            <CollectionView x:Name="IconCollectionView"
+                            ItemsSource="{StaticResource IconsList}"
+                            SelectedItem="&#xe73c;"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            HeightRequest="70"
+                            SelectionMode="Single"
+                            HorizontalScrollBarVisibility="Never"
+                            VerticalScrollBarVisibility="Never">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal"
+                                       SnapPointsAlignment="Center"
+                                       SnapPointsType="MandatorySingle"
+                                       ItemSpacing="0"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:FontImageControl Glyph="{Binding .}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                                <Setter Property="IconColor" Value="{StaticResource Secondary}" />
+                                                <Setter Property="Scale" Value=".75" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                                <Setter Property="IconColor" Value="{StaticResource Primary}" />
+                                                <Setter Property="Scale" Value="1.1" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                        </controls:FontImageControl>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label
+            Text="Tap the above icons to change the selection, then switch tabs below and return to see the icons magically disappear."
+            Style="{StaticResource SubHeadline}" />
+
+            <Label
+            Text="Only the icons which have had a visual state change will vanish."
+            Style="{StaticResource SubHeadline}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
